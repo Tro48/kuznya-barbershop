@@ -9,34 +9,53 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Билд импортирует lib/env.ts и валидирует переменные. Секретов в CI нет,
+# поэтому подставляем заведомо фальшивые: проверяем сборку, а не Telegram.
+env:
+  NEXT_PUBLIC_SITE_URL: https://kuznya-barbershop.vercel.app
+  TELEGRAM_BOT_TOKEN: ci-placeholder
+  TELEGRAM_CHAT_ID: ci-placeholder
+
 jobs:
   quality:
-    name: lint · typecheck · build
+    name: format · lint · typecheck · test · build
     runs-on: ubuntu-latest
-    env:
-      # Билд импортирует lib/env.ts и валидирует переменные. В CI секретов нет,
-      # поэтому подставляем заведомо фальшивые: проверяем сборку, а не Telegram.
-      NEXT_PUBLIC_SITE_URL: https://kuznya-barbershop.vercel.app
-      TELEGRAM_BOT_TOKEN: ci-placeholder
-      TELEGRAM_CHAT_ID: ci-placeholder
     steps:
       - uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-
       - run: pnpm format:check
-
       - run: pnpm lint
-
       - run: pnpm typecheck
-
       - run: pnpm test
-
       - run: pnpm build
+
+  e2e:
+    name: playwright smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+
+      # playwright.config.ts сам поднимает продовый билд: dev-сервер отдаёт другой
+      # JS и другие тайминги, зелёный smoke на нём ничего не гарантирует.
+      - run: pnpm test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

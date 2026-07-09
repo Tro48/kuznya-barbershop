@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { useReducedMotion } from "@/lib/reduced-motion";
 
 /**
  * Появление секции: сдержанное и «тяжёлое». Кузнечный молот не порхает.

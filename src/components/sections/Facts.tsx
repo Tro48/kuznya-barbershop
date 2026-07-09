@@ -1,31 +1,36 @@
 "use client";
 
-import { animate, useInView, useReducedMotion } from "motion/react";
+import { animate, useInView } from "motion/react";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Container } from "@/components/layout/Container";
 import { facts } from "@/content/facts";
+import { prefersReducedMotion } from "@/lib/reduced-motion";
 
 /**
- * Счётчик пишет в DOM напрямую, минуя state: перерисовывать React 60 раз в секунду
- * ради одного числа незачем.
+ * Счётчик пишет в DOM напрямую, минуя state: перерисовывать React шестьдесят раз
+ * в секунду ради одного числа незачем.
  *
  * В разметку сразу попадает конечное значение — так его видят поисковик, читатель
  * без JS и пользователь с `prefers-reduced-motion`. Обнуление происходит в
  * layout-эффекте, до отрисовки: подмены «10 → 0 → 10» на экране не видно.
+ *
+ * Медиа-запрос читается синхронно, а не через хук: хук отдал бы `false` на первом
+ * рендере при гидрации, и layout-эффект успел бы обнулить число тому, кто просил
+ * не анимировать.
  */
 function CountUp({ to, suffix }: { to: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const reduceMotion = useReducedMotion();
-  const willAnimate = !reduceMotion;
+  const willAnimate = useRef(false);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   useLayoutEffect(() => {
-    if (!willAnimate || !ref.current) return;
+    willAnimate.current = !prefersReducedMotion();
+    if (!willAnimate.current || !ref.current) return;
     ref.current.textContent = `0${suffix}`;
-  }, [willAnimate, suffix]);
+  }, [suffix]);
 
   useEffect(() => {
-    if (!willAnimate || !inView || !ref.current) return;
+    if (!willAnimate.current || !inView || !ref.current) return;
 
     const node = ref.current;
     const controls = animate(0, to, {
@@ -37,7 +42,7 @@ function CountUp({ to, suffix }: { to: number; suffix: string }) {
     });
 
     return () => controls.stop();
-  }, [willAnimate, inView, to, suffix]);
+  }, [inView, to, suffix]);
 
   return (
     <span ref={ref} className="tnum">

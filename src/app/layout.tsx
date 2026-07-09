@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Golos_Text, Oswald } from "next/font/google";
 import "./globals.css";
+import { AnalyticsGoals } from "@/components/AnalyticsGoals";
+import { JsonLd } from "@/components/JsonLd";
+import { YandexMetrika } from "@/components/YandexMetrika";
 import { site, siteUrl } from "@/lib/site";
 
 /**
@@ -57,7 +60,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`${oswald.variable} ${golos.variable}`}>
-      <body className="bg-coal text-chalk min-h-svh antialiased">{children}</body>
+      <body className="bg-coal text-chalk min-h-svh antialiased">
+        <JsonLd />
+        {children}
+        <AnalyticsGoals />
+        <YandexMetrika />
+      </body>
     </html>
   );
 }

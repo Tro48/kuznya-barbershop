@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { useReducedMotion } from "@/lib/reduced-motion";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';

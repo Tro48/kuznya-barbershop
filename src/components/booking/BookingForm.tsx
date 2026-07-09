@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/Button";
 import { Checkbox, Input, Select, Textarea } from "@/components/ui/Field";
@@ -62,7 +62,6 @@ export function BookingForm() {
   });
 
   // useWatch, а не watch(): watch() возвращает функцию, которую нельзя мемоизировать.
-  const phone = useWatch({ control, name: "phone" });
   const preferredTime = useWatch({ control, name: "preferredTime" });
 
   // Клик по «Записаться» в карточке услуги или мастера. nonce — чтобы повторный
@@ -147,24 +146,35 @@ export function BookingForm() {
           {/*
             В состоянии формы номер лежит нормализованным (`+79991234567`) — его же
             видит Zod и получает сервер. Человеку показываем `+7 (999) 123-45-67`.
+
+            Controller, а не register: `onBlur` из register перечитывает значение
+            прямо из DOM и затирает нормализованное отформатированным.
           */}
-          <Input
-            label="Телефон"
-            required
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="+7 (999) 123-45-67"
-            error={errors.phone?.message}
-            {...register("phone")}
-            value={formatPhone(phone)}
-            onChange={(event) =>
-              setValue(
-                "phone",
-                normalizePhone(applyPhoneEdit(formatPhone(phone), event.target.value)),
-                { shouldValidate: Boolean(errors.phone) },
-              )
-            }
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field, fieldState }) => (
+              <Input
+                label="Телефон"
+                required
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="+7 (999) 123-45-67"
+                name={field.name}
+                ref={field.ref}
+                onBlur={field.onBlur}
+                error={fieldState.error?.message}
+                value={formatPhone(field.value)}
+                onChange={(event) =>
+                  field.onChange(
+                    normalizePhone(
+                      applyPhoneEdit(formatPhone(field.value), event.target.value),
+                    ),
+                  )
+                }
+              />
+            )}
           />
 
           <Select

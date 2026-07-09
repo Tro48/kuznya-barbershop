@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useCallback, useMemo, useState } from "react";
 import { Section } from "@/components/layout/Section";
@@ -8,6 +8,7 @@ import { Lightbox } from "@/components/ui/Lightbox";
 import { masterBySlug, masters, type MasterSlug } from "@/content/masters";
 import { WORK_HEIGHT, WORK_WIDTH, works } from "@/content/works";
 import { cn } from "@/lib/cn";
+import { useReducedMotion } from "@/lib/reduced-motion";
 
 type Filter = MasterSlug | "all";
 
