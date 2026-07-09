@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: lint · typecheck · build
+    runs-on: ubuntu-latest
+    env:
+      # Билд импортирует lib/env.ts и валидирует переменные. В CI секретов нет,
+      # поэтому подставляем заведомо фальшивые: проверяем сборку, а не Telegram.
+      NEXT_PUBLIC_SITE_URL: https://kuznya-barbershop.vercel.app
+      TELEGRAM_BOT_TOKEN: ci-placeholder
+      TELEGRAM_CHAT_ID: ci-placeholder
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm format:check
+
+      - run: pnpm lint
+
+      - run: pnpm typecheck
+
+      - run: pnpm build
