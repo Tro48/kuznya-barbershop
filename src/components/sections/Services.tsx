@@ -17,7 +17,7 @@ export function Services() {
       title="Услуги"
       lead="Цена «от» — за работу мастера без надбавок за время и день недели. Итог называем до начала, а не после."
     >
-      <ul className="grid gap-px md:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
           <li key={service.slug} className="h-full">
             <Reveal delay={index * STAGGER} className="h-full">

@@ -122,7 +122,7 @@ export function Select({
           required={required}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(id, hint, error)}
-          className={cn(control, "h-12 appearance-none pr-10", className)}
+          className={cn(control, "h-12 cursor-pointer appearance-none pr-10", className)}
         >
           {children}
         </select>
@@ -191,12 +191,15 @@ export function Checkbox({
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
           className={cn(
-            "border-scale bg-anvil accent-brass mt-1 size-4 shrink-0 rounded-xs border",
+            "border-scale bg-anvil accent-brass mt-1 size-4 shrink-0 cursor-pointer rounded-xs border",
             "aria-invalid:border-danger",
             className,
           )}
         />
-        <label htmlFor={id} className="text-small text-ash leading-relaxed">
+        <label
+          htmlFor={id}
+          className="text-small text-ash cursor-pointer leading-relaxed"
+        >
           {label}
         </label>
       </div>

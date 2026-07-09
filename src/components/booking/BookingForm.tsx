@@ -7,10 +7,10 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/Button";
 import { Checkbox, Input, Select, Textarea } from "@/components/ui/Field";
+import { ToggleChip } from "@/components/ui/ToggleChip";
 import { masters } from "@/content/masters";
 import { services } from "@/content/services";
 import { reachGoal } from "@/lib/analytics";
-import { cn } from "@/lib/cn";
 import { applyPhoneEdit, formatPhone, normalizePhone } from "@/lib/phone";
 import {
   ANY_MASTER,
@@ -214,24 +214,17 @@ export function BookingForm() {
               {preferredTimes.map((slot) => {
                 const active = preferredTime === slot;
                 return (
-                  <button
+                  <ToggleChip
                     key={slot}
-                    type="button"
-                    aria-pressed={active}
+                    active={active}
                     onClick={() =>
                       setValue("preferredTime", active ? undefined : slot, {
                         shouldValidate: false,
                       })
                     }
-                    className={cn(
-                      "text-small rounded-sm border px-5 py-2 tracking-wide transition-colors duration-200",
-                      active
-                        ? "border-brass text-brass"
-                        : "border-scale text-ash hover:border-ash hover:text-chalk",
-                    )}
                   >
                     {preferredTimeLabels[slot]}
-                  </button>
+                  </ToggleChip>
                 );
               })}
             </div>

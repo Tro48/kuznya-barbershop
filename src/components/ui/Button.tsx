@@ -5,7 +5,7 @@ type Variant = "primary" | "ghost";
 type Size = "md" | "sm";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-sm border font-display font-semibold " +
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm border font-display font-semibold " +
   "uppercase tracking-[0.06em] whitespace-nowrap transition-colors duration-200 " +
   "disabled:cursor-not-allowed disabled:opacity-55";
 

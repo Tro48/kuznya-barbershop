@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useCallback, useMemo, useState } from "react";
 import { Section } from "@/components/layout/Section";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { ToggleChip } from "@/components/ui/ToggleChip";
 import { masterBySlug, masters, type MasterSlug } from "@/content/masters";
 import { WORK_HEIGHT, WORK_WIDTH, works } from "@/content/works";
-import { cn } from "@/lib/cn";
 import { useReducedMotion } from "@/lib/reduced-motion";
 
 type Filter = MasterSlug | "all";
@@ -57,25 +57,15 @@ export function Works() {
         role="group"
         aria-label="Фильтр по мастеру"
       >
-        {filters.map(({ value, label }) => {
-          const active = filter === value;
-          return (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={active}
-              onClick={() => changeFilter(value)}
-              className={cn(
-                "text-small rounded-sm border px-4 py-2 tracking-wide transition-colors duration-200",
-                active
-                  ? "border-brass text-brass"
-                  : "border-scale text-ash hover:border-ash hover:text-chalk",
-              )}
-            >
-              {label}
-            </button>
-          );
-        })}
+        {filters.map(({ value, label }) => (
+          <ToggleChip
+            key={value}
+            active={filter === value}
+            onClick={() => changeFilter(value)}
+          >
+            {label}
+          </ToggleChip>
+        ))}
       </div>
 
       <motion.ul layout className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -93,7 +83,7 @@ export function Works() {
               <button
                 type="button"
                 onClick={() => setOpenIndex(index)}
-                className="group border-scale hover:border-brass relative block w-full overflow-hidden rounded-sm border transition-colors duration-200"
+                className="group border-scale hover:border-brass relative block w-full cursor-pointer overflow-hidden rounded-sm border transition-colors duration-200"
               >
                 <span className="relative block aspect-4/5">
                   <Image
@@ -171,7 +161,7 @@ function LightboxButton({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="border-scale hover:border-brass hover:text-brass grid size-10 place-items-center rounded-sm border transition-colors duration-200"
+      className="border-scale hover:border-brass hover:text-brass grid size-10 cursor-pointer place-items-center rounded-sm border transition-colors duration-200"
     >
       <span aria-hidden="true">{children}</span>
     </button>

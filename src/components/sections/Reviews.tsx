@@ -16,7 +16,12 @@ export function Reviews() {
       title="Отзывы"
       lead="Собраны с Яндекс.Карт и 2ГИС. Для демонстрационного проекта написаны нами — как и всё остальное на этой странице."
     >
-      <ul className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
+      {/*
+       * Четыре колонки — только с xl. На lg под текст карточки остаётся 184px,
+       * и капслок имени вроде «Сергей и Тимур (5 лет)» уезжает на вторую строку,
+       * поднимая разделитель выше, чем у соседей.
+       */}
+      <ul className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">
         {reviews.map((review, index) => {
           const master = review.masterSlug
             ? masterBySlug.get(review.masterSlug)
@@ -37,7 +42,12 @@ export function Reviews() {
                     <span className="font-display font-semibold tracking-wide uppercase">
                       {review.author}
                     </span>
-                    <span className="text-ash text-small mt-1 block">
+                    {/*
+                     * Под мету зарезервированы две строки. Подпись прижата к низу
+                     * карточки, поэтому мета в одну строку опускала бы разделитель
+                     * ниже, чем у соседей по ряду.
+                     */}
+                    <span className="text-ash text-small mt-1 block min-h-[2lh]">
                       {formatReviewDate(review.date)} · {review.source}
                       {master && ` · мастер ${master.name}`}
                     </span>

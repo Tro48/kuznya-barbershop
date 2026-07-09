@@ -27,11 +27,28 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-        scrolled ? "bg-coal/90 border-scale border-b backdrop-blur-md" : "bg-transparent",
+        // `border-b` висит всегда, переключается только цвет. Без класса цвета
+        // border-color равен currentColor (chalk): рамка вспыхивала белым и
+        // 300ms гасла до тёмной, потому что её красит transition-colors.
+        "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
+        scrolled
+          ? "bg-coal/90 border-scale backdrop-blur-md"
+          : "border-transparent bg-transparent",
       )}
     >
-      <Container className="flex h-20 items-center justify-between gap-4">
+      {/*
+       * Пока шапка лежит на герое, читаемость даёт затемнение сверху вниз.
+       * Сплошной фон дал бы видимый край поперёк фотографии, градиент — нет.
+       */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          "from-coal/80 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent transition-opacity duration-300",
+          scrolled ? "opacity-0" : "opacity-100",
+        )}
+      />
+
+      <Container className="relative flex h-20 items-center justify-between gap-4">
         <a
           href="#top"
           className="font-display text-xl font-semibold tracking-[0.18em] uppercase"
