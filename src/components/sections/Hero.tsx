@@ -28,7 +28,7 @@ export function Hero() {
 
       <Container className="relative pb-16 md:pb-24">
         <h1 className="max-w-4xl">
-          <span className="text-ash mb-6 block text-small tracking-[0.24em] uppercase">
+          <span className="text-ash text-small mb-6 block tracking-[0.24em] uppercase">
             Барбершоп «{site.name}» · Санкт-Петербург
           </span>
           <span className="text-hero block uppercase">{site.slogan}</span>

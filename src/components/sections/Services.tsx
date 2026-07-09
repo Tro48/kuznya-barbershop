@@ -23,7 +23,7 @@ export function Services() {
             <article className="border-scale bg-anvil hover:border-brass flex h-full flex-col rounded-sm border p-6 transition-colors duration-200 md:p-8">
               <h3 className="text-h3 uppercase">{service.title}</h3>
 
-              <p className="text-ash mt-3 flex-1 text-small">{service.description}</p>
+              <p className="text-ash text-small mt-3 flex-1">{service.description}</p>
 
               <div className="border-scale mt-6 flex items-baseline justify-between border-t pt-5">
                 <span className="tnum font-display text-xl font-semibold">

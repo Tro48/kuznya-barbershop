@@ -51,7 +51,7 @@ export function MapSection() {
             <dt className="text-ash text-small tracking-wide uppercase">Адрес</dt>
             <dd className="mt-2">
               {site.address.street}, {site.address.city}
-              <span className="text-ash mt-1 block text-small">
+              <span className="text-ash text-small mt-1 block">
                 {site.address.landmark}
               </span>
             </dd>

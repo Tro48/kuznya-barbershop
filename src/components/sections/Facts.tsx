@@ -61,7 +61,7 @@ export function Facts() {
                   fact.value.text
                 )}
               </dt>
-              <dd className="text-ash mt-3 text-small">{fact.label}</dd>
+              <dd className="text-ash text-small mt-3">{fact.label}</dd>
             </div>
           ))}
         </dl>

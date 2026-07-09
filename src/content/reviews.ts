@@ -10,7 +10,11 @@ export type Review = {
   text: string;
 };
 
-export const reviews = [
+/**
+ * Тип, а не `satisfies`: у части отзывов нет мастера, и литеральный вывод сделал бы
+ * `masterSlug` несуществующим полем на половине объединения.
+ */
+export const reviews: readonly Review[] = [
   {
     id: "r1",
     author: "Кирилл М.",
@@ -42,7 +46,7 @@ export const reviews = [
     source: "Отзыв в Telegram",
     text: "Записался через сайт в 23:40, не рассчитывал ни на что. Перезвонили в 10:05 утра. Мелочь, но именно из-за таких мелочей я сюда хожу.",
   },
-] as const satisfies readonly Review[];
+];
 
 const reviewDateFormatter = new Intl.DateTimeFormat("ru-RU", {
   month: "long",

@@ -1,4 +1,5 @@
 import { BookingProvider } from "@/components/booking/BookingContext";
+import { BookingForm } from "@/components/booking/BookingForm";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Facts } from "@/components/sections/Facts";
@@ -29,6 +30,7 @@ export default function Home() {
         <Masters />
         <Reviews />
         <MapSection />
+        <BookingForm />
       </main>
       <Footer />
     </BookingProvider>

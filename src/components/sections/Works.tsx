@@ -51,7 +51,11 @@ export function Works() {
       title="Работы"
       lead="Единственное настоящее доказательство. Отфильтруйте по мастеру — и записывайтесь именно к нему."
     >
-      <div className="mb-10 flex flex-wrap gap-2" role="group" aria-label="Фильтр по мастеру">
+      <div
+        className="mb-10 flex flex-wrap gap-2"
+        role="group"
+        aria-label="Фильтр по мастеру"
+      >
         {filters.map(({ value, label }) => {
           const active = filter === value;
           return (
@@ -61,7 +65,7 @@ export function Works() {
               aria-pressed={active}
               onClick={() => changeFilter(value)}
               className={cn(
-                "rounded-sm border px-4 py-2 text-small tracking-wide transition-colors duration-200",
+                "text-small rounded-sm border px-4 py-2 tracking-wide transition-colors duration-200",
                 active
                   ? "border-brass text-brass"
                   : "border-scale text-ash hover:border-ash hover:text-chalk",
@@ -99,7 +103,7 @@ export function Works() {
                     className="object-cover"
                   />
                 </span>
-                <span className="from-coal absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-3 pt-10 text-left text-small opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                <span className="from-coal text-small absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-3 pt-10 text-left opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
                   {work.caption}
                 </span>
               </button>

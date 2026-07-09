@@ -11,7 +11,7 @@ export function Footer() {
             <p className="font-display text-xl font-bold tracking-[0.18em] uppercase">
               {site.name}
             </p>
-            <p className="text-ash mt-3 text-small">{site.slogan}</p>
+            <p className="text-ash text-small mt-3">{site.slogan}</p>
           </div>
 
           <div>
@@ -52,11 +52,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-scale text-ash mt-12 flex flex-col gap-3 border-t pt-8 text-small md:flex-row md:items-center md:justify-between">
-          <p>
-            Демонстрационный проект. Компания и отзывы вымышлены.
-          </p>
-          <Link href="/privacy" className="hover:text-brass transition-colors duration-200">
+        <div className="border-scale text-ash text-small mt-12 flex flex-col gap-3 border-t pt-8 md:flex-row md:items-center md:justify-between">
+          <p>Демонстрационный проект. Компания и отзывы вымышлены.</p>
+          <Link
+            href="/privacy"
+            className="hover:text-brass transition-colors duration-200"
+          >
             Политика обработки персональных данных
           </Link>
         </div>

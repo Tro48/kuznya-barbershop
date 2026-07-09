@@ -42,13 +42,14 @@ export function Masters() {
               <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-h3 uppercase">{master.name}</h3>
 
-                <p className="tnum text-ash mt-2 text-small">
-                  {master.experienceYears} {yearsLabel(master.experienceYears)} в профессии
+                <p className="tnum text-ash text-small mt-2">
+                  {master.experienceYears} {yearsLabel(master.experienceYears)} в
+                  профессии
                   {" · "}
                   {master.specialization}
                 </p>
 
-                <blockquote className="border-scale text-ash mt-5 flex-1 border-l pl-4 text-small italic">
+                <blockquote className="border-scale text-ash text-small mt-5 flex-1 border-l pl-4 italic">
                   {master.quote}
                 </blockquote>
 
