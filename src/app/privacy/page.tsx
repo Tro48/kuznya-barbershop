@@ -42,28 +42,35 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <main className="py-section">
-      <Container className="max-w-3xl">
-        <Link
-          href="/"
-          className="text-ash hover:text-brass text-small transition-colors duration-200"
-        >
-          ← На главную
-        </Link>
+      <Container>
+        {/* Своя ширина вложенным блоком: класс на Container конфликтовал бы с его
+            собственным max-width, и кто победит — решал бы порядок правил в CSS. */}
+        <div className="max-w-3xl">
+          <Link
+            href="/"
+            className="text-ash hover:text-brass text-small transition-colors duration-200"
+          >
+            ← На главную
+          </Link>
 
-        <h1 className="text-h2 mt-8 uppercase">Политика обработки персональных данных</h1>
+          <h1 className="text-h2 mt-8 uppercase">
+            Политика обработки персональных данных
+          </h1>
 
-        <p className="text-ash text-small mt-6">
-          Демонстрационный проект. Компания «{site.name}», мастера, цены и отзывы
-          вымышлены. Текст ниже — образец, а не юридический документ действующего бизнеса.
-        </p>
+          <p className="text-ash text-small mt-6">
+            Демонстрационный проект. Компания «{site.name}», мастера, цены и отзывы
+            вымышлены. Текст ниже — образец, а не юридический документ действующего
+            бизнеса.
+          </p>
 
-        <div className="mt-12 space-y-10">
-          {sections.map((section) => (
-            <section key={section.title}>
-              <h2 className="text-h3 uppercase">{section.title}</h2>
-              <p className="text-ash mt-3">{section.body}</p>
-            </section>
-          ))}
+          <div className="mt-12 space-y-10">
+            {sections.map((section) => (
+              <section key={section.title}>
+                <h2 className="text-h3 uppercase">{section.title}</h2>
+                <p className="text-ash mt-3">{section.body}</p>
+              </section>
+            ))}
+          </div>
         </div>
       </Container>
     </main>
