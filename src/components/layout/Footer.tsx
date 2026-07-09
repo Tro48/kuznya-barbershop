@@ -8,7 +8,7 @@ export function Footer() {
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <p className="font-display text-xl font-bold tracking-[0.18em] uppercase">
+            <p className="font-display text-xl font-semibold tracking-[0.18em] uppercase">
               {site.name}
             </p>
             <p className="text-ash text-small mt-3">{site.slogan}</p>

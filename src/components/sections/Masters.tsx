@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/Button";
+import { Reveal, STAGGER } from "@/components/ui/Reveal";
 import { useBooking } from "@/components/booking/BookingContext";
 import { masters } from "@/content/masters";
 
@@ -26,44 +27,46 @@ export function Masters() {
       lead="Стрижёт человек, а не барбершоп. Поэтому — с именами, стажем и специализацией."
     >
       <ul className="grid gap-6 md:grid-cols-3">
-        {masters.map((master) => (
-          <li key={master.slug}>
-            <article className="border-scale bg-anvil hover:border-brass flex h-full flex-col overflow-hidden rounded-sm border transition-colors duration-200">
-              <div className="relative aspect-4/5">
-                <Image
-                  src={master.photo}
-                  alt={master.photoAlt}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
+        {masters.map((master, index) => (
+          <li key={master.slug} className="h-full">
+            <Reveal delay={index * STAGGER} className="h-full">
+              <article className="border-scale bg-anvil hover:border-brass flex h-full flex-col overflow-hidden rounded-sm border transition-colors duration-200">
+                <div className="relative aspect-4/5">
+                  <Image
+                    src={master.photo}
+                    alt={master.photoAlt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
 
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-h3 uppercase">{master.name}</h3>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-h3 uppercase">{master.name}</h3>
 
-                <p className="tnum text-ash text-small mt-2">
-                  {master.experienceYears} {yearsLabel(master.experienceYears)} в
-                  профессии
-                  {" · "}
-                  {master.specialization}
-                </p>
+                  <p className="tnum text-ash text-small mt-2">
+                    {master.experienceYears} {yearsLabel(master.experienceYears)} в
+                    профессии
+                    {" · "}
+                    {master.specialization}
+                  </p>
 
-                <blockquote className="border-scale text-ash text-small mt-5 flex-1 border-l pl-4 italic">
-                  {master.quote}
-                </blockquote>
+                  <blockquote className="border-scale text-ash text-small mt-5 flex-1 border-l pl-4 italic">
+                    {master.quote}
+                  </blockquote>
 
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-6 w-full"
-                  onClick={() => prefill({ master: master.slug })}
-                >
-                  Записаться
-                  <span className="sr-only"> к мастеру {master.name}</span>
-                </Button>
-              </div>
-            </article>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-6 w-full"
+                    onClick={() => prefill({ master: master.slug })}
+                  >
+                    Записаться
+                    <span className="sr-only"> к мастеру {master.name}</span>
+                  </Button>
+                </div>
+              </article>
+            </Reveal>
           </li>
         ))}
       </ul>

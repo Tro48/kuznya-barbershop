@@ -34,7 +34,7 @@ export function Header() {
       <Container className="flex h-20 items-center justify-between gap-4">
         <a
           href="#top"
-          className="font-display text-xl font-bold tracking-[0.18em] uppercase"
+          className="font-display text-xl font-semibold tracking-[0.18em] uppercase"
         >
           {site.name}
         </a>

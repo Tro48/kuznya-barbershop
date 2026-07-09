@@ -6,18 +6,22 @@ import { site, siteUrl } from "@/lib/site";
 /**
  * subsets обязателен: без явной кириллицы браузер тянет латиницу и кириллицу
  * отдельными файлами. display: swap — текст виден, пока шрифт грузится.
+ *
+ * По одному начертанию на шрифт. Четыре веса вместо двух стоили десяти баллов
+ * Lighthouse: каждый — отдельный файл в предзагрузке критического пути.
+ * Начертания 700 и 500 в вёрстке не встречались ни разу.
  */
 const oswald = Oswald({
   variable: "--font-oswald",
   subsets: ["cyrillic", "latin"],
-  weight: ["600", "700"],
+  weight: ["600"],
   display: "swap",
 });
 
 const golos = Golos_Text({
   variable: "--font-golos",
   subsets: ["cyrillic", "latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
   display: "swap",
 });
 
